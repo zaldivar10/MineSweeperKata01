@@ -1,11 +1,16 @@
 const GAMEBOARD_CREATED_MESSAGE = "[Sandbox 3x3] Game created";
 const GAMEOVER_MESSAGE = "BOOM! – Game Over."
 
-function  mineSweeperKata01  (definedGameBoard, selectedSquares) {
-    if (checkGameOver(definedGameBoard[captureSquareSelection(selectedSquares)])){
-        displayGameBoard(definedGameBoard, GAMEOVER_MESSAGE);
-        return GAMEOVER_MESSAGE;
+function  mineSweeperKata01  (definedGameBoard, currentGameBoard, selectedSquares, markBomb) {
+    selectedSquares = selectedSquares.split(' + ');
+    for (let i = 0; i < selectedSquares.length; i++) {
+        currentGameBoard[captureSquareSelection(selectedSquares[i])] = displaySquareValue(definedGameBoard, selectedSquares, markBomb);
+        if (checkGameOver(currentGameBoard[captureSquareSelection(selectedSquares[i])])){
+            displayGameBoard(definedGameBoard, GAMEOVER_MESSAGE);
+            return GAMEOVER_MESSAGE;
+        }   
     }
+    return currentGameBoard;
 }
 
 function createGameBoard() {
@@ -56,16 +61,16 @@ function checkGameOver (squareValue) {
     return squareValue == "X" ? true : false;
 }
 
-function displaySquareValue(definedGameBoard, selectedSquares, unitTest) {
-    let squarePosition = captureSquareSelection(selectedSquares);
+function displaySquareValue(definedGameBoard, selectedSquare, markBomb, unitTest) {
+    let squarePosition = captureSquareSelection(selectedSquare);
 
-    displayUnitTestMessages(definedGameBoard, squarePosition, unitTest);
-    return definedGameBoard[squarePosition];
+    displayUnitTestMessages(definedGameBoard, squarePosition, markBomb, unitTest);
+    return markBomb ? "*" : definedGameBoard[squarePosition];
 }
-
-function displayUnitTestMessages (definedGameBoard, squarePosition, unitTest){
+function displayUnitTestMessages (gameBoard, squarePosition, markBomb, unitTest){
     if (unitTest){
-        displayGameBoard(definedGameBoard, definedGameBoard[squarePosition] + " bombs around your square.");
+        markBomb ? displayGameBoard(gameBoard, "Square flagged as bomb")
+        : displayGameBoard(gameBoard, gameBoard[squarePosition] + " bombs around your square.");
     }
 }
 

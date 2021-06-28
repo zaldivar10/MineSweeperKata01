@@ -32,10 +32,20 @@ describe('UAT Scenario 2: Game Over', () => {
             '|','3','|','X','|','2','|',
             '+','-','+','-','+','-','+'
         ];
+        let currentGameBoard = [
+            '+','-','+','-','+','-','+',
+            '|',' ','|',' ','|',' ','|',
+            '+','-','+','-','+','-','+',
+            '|',' ','|',' ','|',' ','|',
+            '+','-','+','-','+','-','+', 
+            '|',' ','|',' ','|',' ','|',
+            '+','-','+','-','+','-','+'
+            ];
         let selectedSquares = "1;1";
         let gameoverMessage = "BOOM! – Game Over.";
+        let markBomb = false;
 
-        expect(mineSweeperKata01(definedGameBoard, selectedSquares)).toEqual(gameoverMessage);
+        expect(mineSweeperKata01(definedGameBoard, currentGameBoard, selectedSquares, markBomb)).toEqual(gameoverMessage);
     })  
 });
 
@@ -53,8 +63,39 @@ describe('UAT Scenario 3: Clean square 0;0 and get the number of bombs around', 
         let selectedSquares = "0;0";
         let numberOfBombsAround = "3";
         let unitTest = true;
+        let markBomb = false;
 
-        expect(displaySquareValue(definedGameBoard, selectedSquares, unitTest)).toEqual(numberOfBombsAround);
+        expect(displaySquareValue(definedGameBoard, selectedSquares, markBomb, unitTest)).toEqual(numberOfBombsAround);
+    })  
+});
+
+describe('UAT Scenario 4: Mark the bombs around', function() {
+    it('Mark the bombs around – What I expect after I marked the 3 squares as bombs [1;0 + 1;1 + 0;1]', () => {      
+        let definedGameBoard = ['+','-','+','-','+','-','+',
+        '|','2','|','2','|','1','|',
+        '+','-','+','-','+','-','+',
+        '|','X','|','X','|','2','|',
+        '+','-','+','-','+','-','+', 
+        '|','3','|','X','|','2','|',
+        '+','-','+','-','+','-','+'];
+        let currentGameBoard = ['+','-','+','-','+','-','+',
+        '|',' ','|',' ','|',' ','|',
+        '+','-','+','-','+','-','+',
+        '|',' ','|',' ','|',' ','|',
+        '+','-','+','-','+','-','+', 
+        '|','3','|',' ','|',' ','|',
+        '+','-','+','-','+','-','+'];
+        let expectedGameBoard = ['+','-','+','-','+','-','+',
+        '|',' ','|',' ','|',' ','|',
+        '+','-','+','-','+','-','+',
+        '|','*','|','*','|',' ','|',
+        '+','-','+','-','+','-','+', 
+        '|','3','|','*','|',' ','|',
+        '+','-','+','-','+','-','+'];
+        let selectedSquares = "1;0 + 1;1 + 0;1";
+        let markBomb = true;
+
+        expect(mineSweeperKata01(definedGameBoard, currentGameBoard, selectedSquares, markBomb)).toEqual(expectedGameBoard);
     })  
 });
 
@@ -104,5 +145,20 @@ describe('Unit Tests', () => {
         let gameOver = false;
 
         expect(checkGameOver(squareValue)).toEqual(gameOver);
+    })
+
+    it('Display square selection (when marking bomb around)', () => {
+        let definedGameBoard = ['+','-','+','-','+','-','+',
+        '|',' ','|',' ','|',' ','|',
+        '+','-','+','-','+','-','+',
+        '|',' ','|',' ','|',' ','|',
+        '+','X','+','X','+','-','+', 
+        '|',' ','|',' ','|',' ','|',
+        '+','3','+','X','+','-','+'];
+        let squareSelection = "1;0";
+        let squareValue = "*";
+        let markBomb = true;
+
+        expect(displaySquareValue(definedGameBoard, squareSelection, markBomb)).toEqual(squareValue);
     })
 });
