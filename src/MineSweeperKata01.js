@@ -77,9 +77,7 @@ function displaySquareValue(definedGameBoard, selectedSquare, markBomb, unitTest
 }
 function displayUnitTestMessages (gameBoard, squarePosition, markBomb, unitTest){
     if (unitTest){
-        console.log(markBomb);
-        markBomb ? displayGameBoard(gameBoard, "Square flagged as bomb")
-        : displayGameBoard(gameBoard, gameBoard[squarePosition] + " bombs around your square.");
+        displayGameBoard(gameBoard, gameBoard[squarePosition] + " bombs around your square.");
     }
 }
 function countNumberOfBoms(definedGameBoard) {
