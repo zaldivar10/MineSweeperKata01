@@ -3,6 +3,7 @@ const createGameBoard = require('../src/MineSweeperKata01.js').createGameBoard;
 const displayGameBoard = require('../src/MineSweeperKata01.js').displayGameBoard;
 const captureSquareSelection = require('../src/MineSweeperKata01.js').captureSquareSelection;
 const checkGameOver = require('../src/MineSweeperKata01.js').checkGameOver
+const displaySquareValue = require('../src/MineSweeperKata01.js').displaySquareValue
 
 describe('UAT Scenario 1: Game Board Creation phase', () => {
     it('Game Board 3x3 is properly created', () => {      
@@ -38,16 +39,35 @@ describe('UAT Scenario 2: Game Over', () => {
     })  
 });
 
+describe('UAT Scenario 3: Clean square 0;0 and get the number of bombs around', () => {
+    it('Clean square 0;0 and get the number of bombs (3) around', () => {      
+        let definedGameBoard = [
+            '+','-','+','-','+','-','+',
+            '|',' ','|',' ','|',' ','|',
+            '+','-','+','-','+','-','+',
+            '|',' ','|',' ','|',' ','|',
+            '+','-','+','-','+','-','+', 
+            '|','3','|',' ','|',' ','|',
+            '+','-','+','-','+','-','+'
+        ];
+        let selectedSquares = "0;0";
+        let numberOfBombsAround = "3";
+        let unitTest = true;
+
+        expect(displaySquareValue(definedGameBoard, selectedSquares, unitTest)).toEqual(numberOfBombsAround);
+    })  
+});
+
 describe('Unit Tests', () => {
     it('Unit Test 1: Display Game Board', () => {      
         let definedGameBoard = [
-            '+-+-+-+',
-            '| | | |',
-            '+-+-+-+',
-            '| | | |',
-            '+-+-+-+',
-            '| | | |',
-            '+-+-+-+'
+            '+','-','+','-','+','-','+',
+            '|',' ','|',' ','|',' ','|',
+            '+','-','+','-','+','-','+',
+            '|',' ','|',' ','|',' ','|',
+            '+','-','+','-','+','-','+', 
+            '|',' ','|',' ','|',' ','|',
+            '+','-','+','-','+','-','+'
         ];
 
         expect(displayGameBoard(definedGameBoard, "Unit Test 1")).toEqual(undefined)

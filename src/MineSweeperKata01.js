@@ -56,9 +56,23 @@ function checkGameOver (squareValue) {
     return squareValue == "X" ? true : false;
 }
 
+function displaySquareValue(definedGameBoard, selectedSquares, unitTest) {
+    let squarePosition = captureSquareSelection(selectedSquares);
+
+    displayUnitTestMessages(definedGameBoard, squarePosition, unitTest);
+    return definedGameBoard[squarePosition];
+}
+
+function displayUnitTestMessages (definedGameBoard, squarePosition, unitTest){
+    if (unitTest){
+        displayGameBoard(definedGameBoard, definedGameBoard[squarePosition] + " bombs around your square.");
+    }
+}
+
 module.exports.mineSweeperKata01 = mineSweeperKata01
 module.exports.createGameBoard = createGameBoard
 module.exports.displayGameBoard = displayGameBoard
 module.exports.captureSquareSelection = captureSquareSelection
 module.exports.checkGameOver = checkGameOver
+module.exports.displaySquareValue = displaySquareValue
 
