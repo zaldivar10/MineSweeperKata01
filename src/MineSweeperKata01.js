@@ -1,6 +1,12 @@
 const GAMEBOARD_CREATED_MESSAGE = "[Sandbox 3x3] Game created";
-//function  MineSweeperKata01  () {
-//}
+const GAMEOVER_MESSAGE = "BOOM! – Game Over."
+
+function  mineSweeperKata01  (definedGameBoard, selectedSquares) {
+    if (checkGameOver(definedGameBoard[captureSquareSelection(selectedSquares)])){
+        displayGameBoard(definedGameBoard, GAMEOVER_MESSAGE);
+        return GAMEOVER_MESSAGE;
+    }
+}
 
 function createGameBoard() {
     let definedGameBoard = [
@@ -30,7 +36,29 @@ function displayGameBoard(definedGameBoard, message){
     }
     console.log(rowsOfGameBoard, message);
 }
-//module.exports = MineSweeperKata01
+
+function captureSquareSelection(selectedSquares){
+    const MAP_SQUARE_SELECTION_TO_BOARD = {
+        '0;0' : 36,
+        '0;1' : 38,
+        '0;2' : 40,
+        '1;0' : 22,
+        '1;1' : 24,
+        '1;2' : 26,
+        '2;0' : 8,
+        '2;1' : 10,
+        '2;2' : 12,
+      };
+
+  return MAP_SQUARE_SELECTION_TO_BOARD[selectedSquares];
+}
+function checkGameOver (squareValue) {
+    return squareValue == "X" ? true : false;
+}
+
+module.exports.mineSweeperKata01 = mineSweeperKata01
 module.exports.createGameBoard = createGameBoard
 module.exports.displayGameBoard = displayGameBoard
+module.exports.captureSquareSelection = captureSquareSelection
+module.exports.checkGameOver = checkGameOver
 
