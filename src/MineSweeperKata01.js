@@ -1,16 +1,24 @@
 const GAMEBOARD_CREATED_MESSAGE = "[Sandbox 3x3] Game created";
 const GAMEOVER_MESSAGE = "BOOM! – Game Over."
+const VICTORY_MESSAGE =  "the land is cleared! GOOD JOB!"
 
 function  mineSweeperKata01  (definedGameBoard, currentGameBoard, selectedSquares, markBomb) {
+    const NUMBER_BOMBS_IN_GAME = countNumberOfBoms(definedGameBoard);
+    let numberSquaresToOpen = 9;
+    numberSquaresToOpen = numberSquaresToOpen - NUMBER_BOMBS_IN_GAME;
+
     selectedSquares = selectedSquares.split(' + ');
     for (let i = 0; i < selectedSquares.length; i++) {
-        currentGameBoard[captureSquareSelection(selectedSquares[i])] = displaySquareValue(definedGameBoard, selectedSquares, markBomb);
+        currentGameBoard[captureSquareSelection(selectedSquares[i])] = displaySquareValue(definedGameBoard, selectedSquares[i], markBomb);
         if (checkGameOver(currentGameBoard[captureSquareSelection(selectedSquares[i])])){
             displayGameBoard(definedGameBoard, GAMEOVER_MESSAGE);
             return GAMEOVER_MESSAGE;
         }   
+        else{
+            numberSquaresToOpen -= 1;
+        }
     }
-    return currentGameBoard;
+    return checkVictory(currentGameBoard, numberSquaresToOpen) ? VICTORY_MESSAGE : currentGameBoard;
 }
 
 function createGameBoard() {
@@ -69,8 +77,24 @@ function displaySquareValue(definedGameBoard, selectedSquare, markBomb, unitTest
 }
 function displayUnitTestMessages (gameBoard, squarePosition, markBomb, unitTest){
     if (unitTest){
+        console.log(markBomb);
         markBomb ? displayGameBoard(gameBoard, "Square flagged as bomb")
         : displayGameBoard(gameBoard, gameBoard[squarePosition] + " bombs around your square.");
+    }
+}
+function countNumberOfBoms(definedGameBoard) {
+    let numberBombsInGame = 0;
+    definedGameBoard.forEach(element => { if (element == "X") numberBombsInGame ++;      
+    });
+    return numberBombsInGame;
+}
+function checkVictory (currentGameBoard, numberSquaresToOpen){
+    if (numberSquaresToOpen == 0){
+        displayGameBoard(currentGameBoard, VICTORY_MESSAGE);
+        return true;
+    }
+    else{
+        return false;
     }
 }
 

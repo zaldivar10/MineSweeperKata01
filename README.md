@@ -40,6 +40,16 @@
 +-+-+-+
 [Sandbox 3x3] Square flagged as bomb.
 
+5 – Game Victory – After I cleared the all the squares [2;0 + 2;1 + 2;2 + 1;2 + 1;2]
++-+-+-+
+|2|2|1|
++-+-+-+
+|*|*|2|
++-+-+-+
+|3|*|2|
++-+-+-+
+[Sandbox 3x3] the land is cleared! GOOD JOB!
+
 
 # Unit tests
 
@@ -49,10 +59,12 @@
 2.3 Check for game over (doesn't contain a bomb)
 3.1 Display square value (adding function only)
 3.2 Display unit test messages (adding function only)
-4.1 - Display square selection (when marking bomb around)
+4.1 Display square selection (when marking bomb around)
+5.1 Check for Victory
 
 
 # Technical Debt and Open Items
-4.1.1 Work on proper display of Game Board and message related to Square flagged as bomb
+TD1. Work on proper display of Game Board and message related to Square flagged as bomb
+TD2. Add validation for valid input (square position, not repeated)
 
 

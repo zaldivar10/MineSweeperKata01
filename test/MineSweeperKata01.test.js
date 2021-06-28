@@ -99,6 +99,30 @@ describe('UAT Scenario 4: Mark the bombs around', function() {
     })  
 });
 
+describe('UAT Scenario 5: Game Victory', function() {
+    it('Game Victory – After I cleared the all the squares [2;0 + 2;1 + 2;2 + 1;2 + 0;2]', () => {
+        let definedGameBoard = ['+','-','+','-','+','-','+',
+        '|','2','|','2','|','1','|',
+        '+','-','+','-','+','-','+',
+        '|','X','|','X','|','2','|',
+        '+','-','+','-','+','-','+', 
+        '|','3','|','X','|','2','|',
+        '+','-','+','-','+','-','+'];
+        let currentGameBoard = ['+','-','+','-','+','-','+',
+        '|',' ','|',' ','|',' ','|',
+        '+','-','+','-','+','-','+',
+        '|','*','|','*','|',' ','|',
+        '+','-','+','-','+','-','+', 
+        '|','3','|','*','|',' ','|',
+        '+','-','+','-','+','-','+'];
+        let selectedSquares = "0;0 + 2;0 + 2;1 + 2;2 + 1;2 + 0;2";
+        let markBomb = false;
+        let victoryMessage = "the land is cleared! GOOD JOB!";
+
+        expect(mineSweeperKata01(definedGameBoard, currentGameBoard, selectedSquares, markBomb)).toEqual(victoryMessage);
+    })
+})
+
 describe('Unit Tests', () => {
     it('Unit Test 1: Display Game Board', () => {      
         let definedGameBoard = [
